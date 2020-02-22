@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { connect } from 'react-redux';
 import actions from '../redux/actions/links.action';
+import { ToastContainer, toast } from 'react-toastify';
 
 class AddLink extends React.Component {
     state = {
@@ -11,15 +12,20 @@ class AddLink extends React.Component {
         vote: 0
     };
 
+    notify = (name) => toast.success(name + " Added");
+
     constructor(props) {
         super(props);
         console.log(this.props);
     }
 
     render() {
+        if (this.props.toasty) {
+            this.notify(this.state.name)
+        }
         return (
             <div>
-                <Form onSubmit={e => this.props.addLink(this.state)}>
+                <Form>
                     <Form.Group controlId="linkName">
                         <Form.Label>Enter link name</Form.Label>
                         <Form.Control type="text" name="name" value={this.state.name}
@@ -33,15 +39,22 @@ class AddLink extends React.Component {
                             onChange={event => this.setState({ url: event.target.value })}
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="button" onClick={(e) => {
+                        this.props.addLink(this.state)
+                    }}>
                         Submit
         </Button>
-                </Form></div>)
+                </Form>
+                <ToastContainer />
+            </div>)
     }
 }
 
-const mapStateToProps = state => state
-
+const mapStateToProps = state => {
+    return {
+        ...state.links
+    }
+}
 const mapDispatchToProps = dispatch => ({
     addLink: (data) => {
         dispatch(actions.addLink(data));

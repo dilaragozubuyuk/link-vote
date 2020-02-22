@@ -12,11 +12,18 @@ export const linkReducer = (state = initialState, action) => {
                 ...action.payload
             }
         case TYPES.ADD_LINK:
+            return { ...state, ...action.payload }
+        case TYPES.ADD_LINK_SUCCESS:
             return {
+                ...action.payload,
                 links: [
                     ...state.lists,
-                    action.payload
+                    action.link
                 ]
+            }
+        case TYPES.ADD_LINK_FAILURE:
+            return {
+
             }
         default:
             return state

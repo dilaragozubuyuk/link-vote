@@ -17,21 +17,39 @@ const actions = {
     },
     addLink: (data) => {
         return dispatch => {
-            let links = JSON.parse(localStorage.getItem('links'));
-            if (links) {
-                links.push(data);
-            } else {
-                links = [data];
-            }
-            localStorage.setItem('links', JSON.stringify(links));
-
             dispatch({
                 type: TYPES.ADD_LINK,
                 payload: {
                     loading: true,
-                    link: data
                 }
             });
+
+            try {
+                let links = JSON.parse(localStorage.getItem('links'));
+                if (links) {
+                    links.push(data);
+                } else {
+                    links = [data];
+                }
+                localStorage.setItem('links', JSON.stringify(links));
+
+                dispatch({
+                    type: TYPES.ADD_LINK_SUCCESS,
+                    payload: {
+                        loading: false,
+                        toasty: true,
+                    },
+                    link: data
+                });
+
+            } catch(e) {
+                dispatch({
+                    type: TYPES.ADD_LINK_FAILURE,
+                    payload: {
+                        error: e,
+                    }
+                });
+            }
         };
     },
 }
