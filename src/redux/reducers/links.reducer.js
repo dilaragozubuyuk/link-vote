@@ -9,7 +9,7 @@ export const linkReducer = (state = initialState, action) => {
         case TYPES.FETCH_LINKS:
             return {
                 ...state,
-                lists: action.payload
+                ...action.payload
             }
         default:
             return state

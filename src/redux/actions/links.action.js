@@ -1,8 +1,21 @@
 import TYPES from '../../constansts/constants'
 
-export const fetchLinks = params => (dispatch) => {
-    return dispatch({
-        type: TYPES.FETCH_LINKS,
-        loading: true
-    })
+const actions = {
+    fetchLinks: () => {
+        return dispatch => {
+            dispatch({
+                type: TYPES.FETCH_LINKS,
+                payload: {
+                    loading: true,
+                    lists: [{
+                        id: '3444',
+                        name: 'dilos'
+                    }]
+                }
+            });
+        };
+    },
 }
+
+
+export default actions

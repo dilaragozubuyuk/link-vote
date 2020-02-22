@@ -6,8 +6,14 @@ class Links extends React.Component {
         super(props);
         console.log(this.props);
     }
+
     render() {
-        return <h2>Links list</h2>;
+        const list = this.props.links.map((element, index) =>
+            <li key={index}>{element.name}</li>
+        );
+
+        return <div className="list-group">
+            <ul>{list}</ul> </div>;
     }
 }
 

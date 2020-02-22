@@ -1,25 +1,29 @@
 import React from 'react';
 import Links from '../components/links.component';
-import {connect} from 'react-redux';
-import {fetchLinks } from '../redux/actions/links.action';
+import { connect } from 'react-redux';
+import actions from '../redux/actions/links.action';
 
 class ListContainer extends React.Component {
-    state = { links: [] };
 
     componentDidMount() {
         this.props.fetchLinks();
     }
 
     render() {
-        return <Links links={this.state.links} />;
+        return <Links links={this.props.links} />;
     }
 }
 
-const mapStateToProps = state => state.links;
+const mapStateToProps = state => {
+    return {
+        links: state.links.lists
+    }
+}
+
 
 const mapDispatchToProps = dispatch => ({
     fetchLinks: () => {
-        dispatch(fetchLinks());
+        dispatch(actions.fetchLinks());
     },
 });
 
