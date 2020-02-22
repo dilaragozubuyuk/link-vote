@@ -1,16 +1,24 @@
 import TYPES from '../../constansts/constants'
 
 const actions = {
-    fetchLinks: () => {
+    fetchLinks: (page) => {
         return dispatch => {
             let links = JSON.parse(localStorage.getItem('links'));
             links = links ? links : [];
+            const data = [];
+
+            for (let index = page * 5; index < page * 5 + 5; index++) {
+                if (links[index])  {
+                    data.push(links[index]);
+                }
+            }
 
             dispatch({
                 type: TYPES.FETCH_LINKS,
                 payload: {
                     loading: true,
-                    lists: links
+                    list: data,
+                    totalCount: links.length
                 }
             });
         };

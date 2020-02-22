@@ -2,27 +2,31 @@ import React from 'react';
 import Links from '../components/links.component';
 import { connect } from 'react-redux';
 import actions from '../redux/actions/links.action';
+import PaginationComponent from '../components/pagination.component'
 
 class ListContainer extends React.Component {
 
     componentDidMount() {
-        this.props.fetchLinks();
+        this.props.fetchLinks(1);
     }
 
     render() {
-        return <Links links={this.props.links} />;
+        console.log(this.props)
+        return (<div>
+            <Links list={this.props.list}/>
+         <PaginationComponent totalCount={this.props.totalCount}/> </div>);
     }
 }
 
 const mapStateToProps = state => {
     return {
-        links: state.links.lists
+        ...state.links
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchLinks: () => {
-        dispatch(actions.fetchLinks());
+    fetchLinks: (data) => {
+        dispatch(actions.fetchLinks(data));
     },
 });
 
