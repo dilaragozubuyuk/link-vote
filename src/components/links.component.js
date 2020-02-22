@@ -1,5 +1,4 @@
 import React from 'react';
-
 class Links extends React.Component {
 
     constructor(props) {
