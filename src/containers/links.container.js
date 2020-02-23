@@ -3,7 +3,14 @@ import Links from '../components/links.component';
 import { connect } from 'react-redux';
 import actions from '../redux/actions/links.action';
 import PaginationComponent from '../components/pagination.component'
-
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 class ListContainer extends React.Component {
 
     state = {
@@ -17,21 +24,50 @@ class ListContainer extends React.Component {
     }
 
     render() {
-        return (<div>
-            <div>Sirala</div>
-            <div onClick={(e) => {
-                this.props.orderByVote(this.props.page, true, 'asc')
-            }}>Yukarı</div>
-            <div onClick={(e) => {
-                this.props.orderByVote(this.props.page, true, 'desc')
-            }}>Asagi</div>
-            <Links list={this.props.list}
-                orderByVoteType={this.props.orderByVoteType}
-                orderByVote={this.props.orderByVoteState}
-                page={this.props.page}
-                giveVote={this.props.giveVote} />
-            <PaginationComponent totalCount={this.props.totalCount} orderByVoteType={this.props.orderByVoteType}
-                orderByVote={this.props.orderByVoteState} fetchLinks={this.props.fetchLinks} page={this.props.page} /> </div>);
+        return (
+            <div>
+                <div className="container">
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-4 submit-link">
+                            <div className="row">
+                                <div className="col">
+                                    <span className="plus-icon">+</span>
+                                </div>
+                                <div className="col">
+                                    <Link className="add-link" to="/add-link">Submit A link</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="container">
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-4">
+                            <DropdownButton id="dropdown-item-button" title="Order By">
+                                <Dropdown.Item as="button" onClick={(e) => {
+                                    this.props.orderByVote(this.props.page, true, 'asc')
+                                }}>Most Voted (Z -> A)</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => {
+                                    this.props.orderByVote(this.props.page, true, 'desc')
+                                }} as="button">Less Voted (A -> Z)</Dropdown.Item>
+                            </DropdownButton>
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-4">
+                            <Links list={this.props.list}
+                                orderByVoteType={this.props.orderByVoteType}
+                                orderByVote={this.props.orderByVoteState}
+                                page={this.props.page}
+                                giveVote={this.props.giveVote} />
+                            <div className="row">
+                                <PaginationComponent totalCount={this.props.totalCount} orderByVoteType={this.props.orderByVoteType}
+                                    orderByVote={this.props.orderByVoteState} fetchLinks={this.props.fetchLinks} page={this.props.page} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>);
     }
 }
 

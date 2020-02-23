@@ -4,7 +4,9 @@ import Button from 'react-bootstrap/Button'
 import { connect } from 'react-redux';
 import actions from '../redux/actions/links.action';
 import { ToastContainer, toast } from 'react-toastify';
-
+import {
+    Link
+} from "react-router-dom";
 class AddLink extends React.Component {
     state = {
         name: '',
@@ -17,7 +19,6 @@ class AddLink extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
 
     render() {
@@ -25,7 +26,18 @@ class AddLink extends React.Component {
             this.notify(this.state.name)
         }
         return (
-            <div>
+            <div className="container">
+                <div className="container">
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-4 submit-link">
+                            <div className="row">
+                                <div className="col">
+                                    <Link className="add-link" to="/list">Return to list</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <Form>
                     <Form.Group controlId="linkName">
                         <Form.Label>Enter link name</Form.Label>
@@ -40,11 +52,11 @@ class AddLink extends React.Component {
                             onChange={event => this.setState({ url: event.target.value })}
                         />
                     </Form.Group>
-                    <Button variant="primary" type="button" onClick={(e) => {
-                        this.setState({created_at: new Date()});
+                    <Button variant="primary add" type="button" onClick={(e) => {
+                        this.setState({ created_at: new Date() });
                         this.props.addLink(this.state)
                     }}>
-                        Submit
+                        ADD
         </Button>
                 </Form>
                 <ToastContainer />

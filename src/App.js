@@ -13,16 +13,6 @@ import AddLink from './components/add-link.component';
 function App() {
   return (
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/add-link">Add</Link>
-          </li>
-          <li>
-            <Link to="/list">list</Link>
-          </li>
-        </ul>
-      </div>
       <Switch>
         <Route path="/list">
           <ListContainer />

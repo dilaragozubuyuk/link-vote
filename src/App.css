@@ -2,9 +2,72 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  margin: 40px;
+}
+
+.submit-link {
+  text-align: center;
+}
+
+.plus-icon {
+  font-size: 50px;
+  line-height: 15px;
+  float: right;
+}
+
+.link-vote {
+  float: left;
+  height: 100px;
+  width: 100px;
+  line-height: 60px;
+  text-align: center;
+}
+
+.vote-number {
+  font-size: 35px;
+}
+
+.vote {
+  margin-top: 20px;
+}
+
+.down-vote {
+  float: right;
+}
+
+ul {
+  list-style: none;
+}
+
+.link-list {
+  height: 150px;
+  width: 400px;
+  border: 1px solid;
+  margin: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+form {
+  margin-right: 100px;
+  margin-left: 100px;
+}
+.add {
+  float: right;
+}
+
+.dropdown {
+  text-align: center
+}
+
+.link-name{
+  float: left;
+  height: 150px;
+  width: 200px;
+}
+
+.add-link {
+  float: left;
 }
 
 @media (prefers-reduced-motion: no-preference) {
