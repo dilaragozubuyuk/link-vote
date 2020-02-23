@@ -9,7 +9,7 @@ class ListContainer extends React.Component {
     state = {
         orderByVoteState: false,
         orderByVoteType: null,
-        currentPage: 1
+        page: 1
     }
 
     componentDidMount() {
@@ -17,22 +17,21 @@ class ListContainer extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (<div>
             <div>Sirala</div>
             <div onClick={(e) => {
-                this.setState({ orderByVoteState: true, orderByVoteType: 'asc' });
-                this.props.orderByVote(this.state.orderByVoteState, this.state.orderByVoteType)
+                this.props.orderByVote(this.props.page, true, 'asc')
             }}>Yukarı</div>
             <div onClick={(e) => {
-                this.setState({ orderByVoteState: true, orderByVoteType: 'desc' });
-                this.props.orderByVote(this.state.orderByVoteState, this.state.orderByVoteType)
+                this.props.orderByVote(this.props.page, true, 'desc')
             }}>Asagi</div>
             <Links list={this.props.list}
-                orderByVoteType={this.state.orderByVoteType}
-                orderByVote={this.state.orderByVoteState}
+                orderByVoteType={this.props.orderByVoteType}
+                orderByVote={this.props.orderByVoteState}
+                page={this.props.page}
                 giveVote={this.props.giveVote} />
-            <PaginationComponent totalCount={this.props.totalCount} /> </div>);
+            <PaginationComponent totalCount={this.props.totalCount} orderByVoteType={this.props.orderByVoteType}
+                orderByVote={this.props.orderByVoteState} fetchLinks={this.props.fetchLinks} page={this.props.page} /> </div>);
     }
 }
 
@@ -43,14 +42,14 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchLinks: (data, orderByVoteState, orderByVoteType) => {
-        dispatch(actions.fetchLinks(data, orderByVoteState, orderByVoteType));
+    fetchLinks: (page, orderByVoteState, orderByVoteType) => {
+        dispatch(actions.fetchLinks(page, orderByVoteState, orderByVoteType));
     },
-    giveVote: (link, orderByVoteState, orderByVoteType) => {
-        dispatch(actions.giveVote(link, orderByVoteState, orderByVoteType));
+    giveVote: (link, page, orderByVoteState, orderByVoteType) => {
+        dispatch(actions.giveVote(link, page, orderByVoteState, orderByVoteType));
     },
-    orderByVote: (orderByVoteState, orderByVoteType) => {
-        dispatch(actions.orderByVote(orderByVoteState, orderByVoteType));
+    orderByVote: (page, orderByVoteState, orderByVoteType) => {
+        dispatch(actions.orderByVote(page, orderByVoteState, orderByVoteType));
     }
 });
 

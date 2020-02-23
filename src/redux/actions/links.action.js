@@ -1,24 +1,16 @@
 import TYPES from '../../constansts/constants'
+import utils from '../../shared/utils.service';
 
 const actions = {
     fetchLinks: (page, orderByVote, orderByVoteType) => {
         return dispatch => {
             let links = JSON.parse(localStorage.getItem('links'));
             links = links ? links : [];
-            const data = [];
 
+            let data = [];
             if (links) {
-                links = links.sort((a, b) => {
-                    return new Date(b.created_at) - new Date(a.created_at);
-                });
-            }
-
-            page = page === 1 ? 0 : page;
-
-            for (let index = page * 5; index < page * 5 + 5; index++) {
-                if (links[index]) {
-                    data.push(links[index]);
-                }
+                links = utils.sortByDate(links, orderByVote ? 'vote' : 'created_at', orderByVoteType)
+                data = utils.paginate(page, links)
             }
 
             dispatch({
@@ -28,7 +20,8 @@ const actions = {
                     list: data,
                     orderByVoteState: orderByVote,
                     orderByVoteType: orderByVoteType,
-                    totalCount: links.length
+                    totalCount: links.length,
+                    page: page
                 }
             });
         };
@@ -70,7 +63,7 @@ const actions = {
             }
         };
     },
-    giveVote: (newLink, orderByVote, orderByVoteType) => {
+    giveVote: (newLink, page, orderByVote, orderByVoteType) => {
         return dispatch => {
             let links = JSON.parse(localStorage.getItem('links'));
             links = links ? links : [];
@@ -83,55 +76,48 @@ const actions = {
                 links[index] = newLink;
             }
 
-            if (links && orderByVote && orderByVoteType) {
-                links = links.sort((a, b) => {
-                    return orderByVoteType === 'asc' ? new Date(b.vote) - new Date(a.vote) : new Date(a.vote) - new Date(b.vote)
-                });
-            }
-
             localStorage.setItem('links', JSON.stringify(links));
+
+            let data = [];
+            if (links) {
+                links = utils.sortByType(links, orderByVote ? 'vote' : 'created_at', orderByVoteType)
+                data = utils.paginate(page, links)
+            }
 
             dispatch({
                 type: TYPES.GIVE_VOTE,
                 payload: {
                     loading: false,
-                    list: links,
+                    list: data,
                     orderByVoteState: orderByVote,
                     orderByVoteType: orderByVoteType,
-                    totalCount: links.length
+                    totalCount: links.length,
+                    page: page
                 }
             });
         };
     },
-    orderByVote: (orderByVoteState, orderByVoteType) => {
+    orderByVote: (page, orderByVoteState, orderByVoteType) => {
         return dispatch => {
             let page = 1;
             let links = JSON.parse(localStorage.getItem('links'));
             links = links ? links : [];
+            let data = [];
 
             if (links) {
-                links = links.sort((a, b) => {
-                    return orderByVoteType === 'asc' ? new Date(b.vote) - new Date(a.vote) : new Date(a.vote) - new Date(b.vote);
-                });
-            }
-
-            const data = [];
-            page = page === 1 ? 0 : page;
-
-            for (let index = page * 5; index < page * 5 + 5; index++) {
-                if (links[index]) {
-                    data.push(links[index]);
-                }
+                links = utils.sortByType(links, 'vote', orderByVoteType)
+                data = utils.paginate(page, links)
             }
 
             dispatch({
                 type: TYPES.ORDER_BY_VOTE,
                 payload: {
                     loading: false,
-                    list: links,
+                    list: data,
                     orderByVoteState: orderByVoteState,
                     orderByVoteType: orderByVoteType,
-                    totalCount: links.length
+                    totalCount: links.length,
+                    page: page
                 }
             });
         };
