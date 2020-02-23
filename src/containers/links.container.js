@@ -6,6 +6,12 @@ import PaginationComponent from '../components/pagination.component'
 
 class ListContainer extends React.Component {
 
+    state = {
+        orderByVoteState: false,
+        orderByVoteType: null,
+        currentPage: 1
+    }
+
     componentDidMount() {
         this.props.fetchLinks(1);
     }
@@ -13,8 +19,20 @@ class ListContainer extends React.Component {
     render() {
         console.log(this.props)
         return (<div>
-            <Links list={this.props.list} giveVote={this.props.giveVote}/>
-         <PaginationComponent totalCount={this.props.totalCount}/> </div>);
+            <div>Sirala</div>
+            <div onClick={(e) => {
+                this.setState({ orderByVoteState: true, orderByVoteType: 'asc' });
+                this.props.orderByVote(this.state.orderByVoteState, this.state.orderByVoteType)
+            }}>Yukarı</div>
+            <div onClick={(e) => {
+                this.setState({ orderByVoteState: true, orderByVoteType: 'desc' });
+                this.props.orderByVote(this.state.orderByVoteState, this.state.orderByVoteType)
+            }}>Asagi</div>
+            <Links list={this.props.list}
+                orderByVoteType={this.state.orderByVoteType}
+                orderByVote={this.state.orderByVoteState}
+                giveVote={this.props.giveVote} />
+            <PaginationComponent totalCount={this.props.totalCount} /> </div>);
     }
 }
 
@@ -25,11 +43,14 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchLinks: (data) => {
-        dispatch(actions.fetchLinks(data));
+    fetchLinks: (data, orderByVoteState, orderByVoteType) => {
+        dispatch(actions.fetchLinks(data, orderByVoteState, orderByVoteType));
     },
-    giveVote: (link) => {
-      dispatch(actions.giveVote(link));
+    giveVote: (link, orderByVoteState, orderByVoteType) => {
+        dispatch(actions.giveVote(link, orderByVoteState, orderByVoteType));
+    },
+    orderByVote: (orderByVoteState, orderByVoteType) => {
+        dispatch(actions.orderByVote(orderByVoteState, orderByVoteType));
     }
 });
 

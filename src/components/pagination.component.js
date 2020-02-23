@@ -8,9 +8,6 @@ class PaginationComponent extends React.Component {
     state = {
         currentPage: 1
     }
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         let items = [];

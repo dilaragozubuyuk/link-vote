@@ -11,6 +11,11 @@ export const linkReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload
             }
+        case TYPES.GIVE_VOTE:
+            return {
+                ...state,
+                ...action.payload
+            }
         case TYPES.ADD_LINK:
             return { ...state, ...action.payload }
         case TYPES.ADD_LINK_SUCCESS:
@@ -21,9 +26,10 @@ export const linkReducer = (state = initialState, action) => {
                     action.link
                 ]
             }
-        case TYPES.ADD_LINK_FAILURE:
+        case TYPES.ORDER_BY_VOTE:
             return {
-
+                ...state,
+                ...action.payload
             }
         default:
             return state

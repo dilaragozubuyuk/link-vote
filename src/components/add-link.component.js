@@ -10,7 +10,7 @@ class AddLink extends React.Component {
         name: '',
         link: '',
         vote: 0,
-        created_at: ''
+        created_at: new Date()
     };
 
     notify = (name) => toast.success(name + " Added");
