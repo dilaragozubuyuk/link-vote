@@ -3,10 +3,6 @@ import Pagination from 'react-bootstrap/Pagination'
 
 class PaginationComponent extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let items = [];
     let pageCount = Math.ceil(this.props.totalCount / 5);

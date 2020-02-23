@@ -16,6 +16,11 @@ export const linkReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload
             }
+        case TYPES.REMOVE_LINK:
+            return {
+                ...state,
+                ...action.payload
+            }
         case TYPES.ADD_LINK:
             return { ...state, ...action.payload }
         case TYPES.ADD_LINK_SUCCESS:

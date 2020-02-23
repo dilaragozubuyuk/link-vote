@@ -6,9 +6,6 @@ import PaginationComponent from '../components/pagination.component'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
 class ListContainer extends React.Component {
@@ -59,6 +56,7 @@ class ListContainer extends React.Component {
                                 orderByVoteType={this.props.orderByVoteType}
                                 orderByVote={this.props.orderByVoteState}
                                 page={this.props.page}
+                                removeLink={this.props.removeLink}
                                 giveVote={this.props.giveVote} />
                             <div className="row">
                                 <PaginationComponent totalCount={this.props.totalCount} orderByVoteType={this.props.orderByVoteType}
@@ -86,6 +84,9 @@ const mapDispatchToProps = dispatch => ({
     },
     orderByVote: (page, orderByVoteState, orderByVoteType) => {
         dispatch(actions.orderByVote(page, orderByVoteState, orderByVoteType));
+    },
+    removeLink: (link, page, orderByVoteState, orderByVoteType) => {
+        dispatch(actions.removeLink(link, page, orderByVoteState, orderByVoteType));
     }
 });
 

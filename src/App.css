@@ -63,7 +63,11 @@ form {
 .link-name{
   float: left;
   height: 150px;
-  width: 200px;
+  width: 280px;
+}
+
+.remove {
+  font-size: 18px;
 }
 
 .add-link {

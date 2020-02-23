@@ -1,9 +1,8 @@
 import React from 'react';
-class Links extends React.Component {
+import { ToastContainer, toast } from 'react-toastify';
 
-    constructor(props) {
-        super(props);
-    }
+class Links extends React.Component {
+    notify = (name) => toast.success(name + " Removed");
 
     render() {
         let list = []
@@ -26,10 +25,15 @@ class Links extends React.Component {
                             </div>
                             <div className="vote">
                                 <span onClick={(e) => { element.vote++; this.props.giveVote(element, this.props.page, this.props.orderByVote, this.props.orderByVoteType) }}>Up Vote</span>
-                                <span className="down-vote" onClick={(e) => { element.vote--; this.props.giveVote(element, this.props.page, this.props.orderByVote, this.props.orderByVoteType) }}>Down Vote</span>
+                                <span className="down-vote" onClick={(e) => {element.vote--; this.props.giveVote(element, this.props.page, this.props.orderByVote, this.props.orderByVoteType) }}>Down Vote</span>
                             </div>
                         </div>
+                        <span className="remove" onClick={(e) => {
+                            this.props.removeLink(element, this.props.page, this.props.orderByVote, this.props.orderByVoteType)
+                            this.notify(element.name)
+                            }}>x</span>
                     </div>
+                    <ToastContainer />
                 </li>
             );
         }

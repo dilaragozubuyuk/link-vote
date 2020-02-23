@@ -99,7 +99,6 @@ const actions = {
     },
     orderByVote: (page, orderByVoteState, orderByVoteType) => {
         return dispatch => {
-            let page = 1;
             let links = JSON.parse(localStorage.getItem('links'));
             links = links ? links : [];
             let data = [];
@@ -111,6 +110,37 @@ const actions = {
 
             dispatch({
                 type: TYPES.ORDER_BY_VOTE,
+                payload: {
+                    loading: false,
+                    list: data,
+                    orderByVoteState: orderByVoteState,
+                    orderByVoteType: orderByVoteType,
+                    totalCount: links.length,
+                    page: page
+                }
+            });
+        };
+    },
+    removeLink: (link, page, orderByVoteState, orderByVoteType) => {
+        return dispatch => {
+            let links = JSON.parse(localStorage.getItem('links'));
+            links = links ? links : [];
+
+            const index = links.findIndex(item => item.url === link.url)
+
+            links.splice(index, 1);
+
+            localStorage.setItem('links', JSON.stringify(links));
+
+            let data = [];
+
+            if (links) {
+                links = utils.sortByType(links, orderByVoteState ? 'vote' : 'created_at', orderByVoteType)
+                data = utils.paginate(page, links)
+            }
+
+            dispatch({
+                type: TYPES.REMOVE_LINK,
                 payload: {
                     loading: false,
                     list: data,

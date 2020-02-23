@@ -17,14 +17,7 @@ class AddLink extends React.Component {
 
     notify = (name) => toast.success(name + " Added");
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        if (this.props.toasty) {
-            this.notify(this.state.name)
-        }
         return (
             <div className="container">
                 <div className="container">
@@ -55,6 +48,7 @@ class AddLink extends React.Component {
                     <Button variant="primary add" type="button" onClick={(e) => {
                         this.setState({ created_at: new Date() });
                         this.props.addLink(this.state)
+                        this.notify(this.state.name)
                     }}>
                         ADD
         </Button>

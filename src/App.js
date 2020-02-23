@@ -4,8 +4,7 @@ import ListContainer from './containers/links.container';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import AddLink from './components/add-link.component';
 
