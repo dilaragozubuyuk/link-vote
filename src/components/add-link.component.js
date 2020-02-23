@@ -9,7 +9,8 @@ class AddLink extends React.Component {
     state = {
         name: '',
         link: '',
-        vote: 0
+        vote: 0,
+        created_at: ''
     };
 
     notify = (name) => toast.success(name + " Added");
@@ -40,6 +41,7 @@ class AddLink extends React.Component {
                         />
                     </Form.Group>
                     <Button variant="primary" type="button" onClick={(e) => {
+                        this.setState({created_at: new Date()});
                         this.props.addLink(this.state)
                     }}>
                         Submit

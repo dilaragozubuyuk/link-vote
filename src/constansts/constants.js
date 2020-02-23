@@ -5,6 +5,7 @@ const TYPES = {
     ADD_LINK: 'ADD_LINK',
     ADD_LINK_SUCCESS: 'ADD_LINK_SUCCESS',
     ADD_LINK_FAILURE: 'ADD_LINK_FAILURE',
+    GIVE_VOTE: 'GIVE_VOTE'
 };
 
 export default TYPES

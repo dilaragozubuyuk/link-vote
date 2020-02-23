@@ -25,14 +25,13 @@ class PaginationComponent extends React.Component {
           );
         }
 
-        const paginationBasic = (
+        const paginationList = (
           <div>
             <Pagination>{items}</Pagination>
-            {/* <Pagination size="sm">{items}</Pagination> */}
           </div>
         );
 
-        return <div> {paginationBasic} </div>;
+        return <div> {paginationList} </div>;
     }
 }
 
@@ -44,7 +43,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     fetchLinks: (data) => {
         dispatch(actions.fetchLinks(data));
-    },
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaginationComponent);

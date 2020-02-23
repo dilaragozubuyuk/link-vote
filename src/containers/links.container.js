@@ -13,7 +13,7 @@ class ListContainer extends React.Component {
     render() {
         console.log(this.props)
         return (<div>
-            <Links list={this.props.list}/>
+            <Links list={this.props.list} giveVote={this.props.giveVote}/>
          <PaginationComponent totalCount={this.props.totalCount}/> </div>);
     }
 }
@@ -28,6 +28,9 @@ const mapDispatchToProps = dispatch => ({
     fetchLinks: (data) => {
         dispatch(actions.fetchLinks(data));
     },
+    giveVote: (link) => {
+      dispatch(actions.giveVote(link));
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListContainer);

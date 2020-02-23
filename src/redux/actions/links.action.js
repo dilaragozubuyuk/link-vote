@@ -8,7 +8,7 @@ const actions = {
             const data = [];
 
             for (let index = page * 5; index < page * 5 + 5; index++) {
-                if (links[index])  {
+                if (links[index]) {
                     data.push(links[index]);
                 }
             }
@@ -16,7 +16,7 @@ const actions = {
             dispatch({
                 type: TYPES.FETCH_LINKS,
                 payload: {
-                    loading: true,
+                    loading: false,
                     list: data,
                     totalCount: links.length
                 }
@@ -50,7 +50,7 @@ const actions = {
                     link: data
                 });
 
-            } catch(e) {
+            } catch (e) {
                 dispatch({
                     type: TYPES.ADD_LINK_FAILURE,
                     payload: {
@@ -58,6 +58,29 @@ const actions = {
                     }
                 });
             }
+        };
+    },
+    giveVote: (newLink) => {
+        return dispatch => {
+            let links = JSON.parse(localStorage.getItem('links'));
+            links = links ? links : [];
+
+            const index = links.findIndex(item => item.url === newLink.url)
+
+            if (index === -1) {
+                links.push(newLink);
+            } else {
+                links[index] = newLink;
+            }
+
+            dispatch({
+                type: TYPES.GIVE_VOTE,
+                payload: {
+                    loading: false,
+                    list: links,
+                    totalCount: links.length
+                }
+            });
         };
     },
 }
